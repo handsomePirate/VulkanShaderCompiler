@@ -14,7 +14,7 @@ VkShaderModule VulkanShaderCompiler::Compile(VkDevice device, const char* filena
 		return VK_NULL_HANDLE;
 	}
 
-	if (filesystem.Extension(filenameStr) != "glsl")
+	if (filesystem.Extension(filenameStr) != ".glsl")
 	{
 		CoreLogWarn(CompilerLogger, "Compiler: File \'%s\' is not a GLSL file.", filename);
 	}
