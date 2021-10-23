@@ -2,7 +2,7 @@
 
 int main(int argc, char* argv[])
 {
-	VulkanShaderCompiler::Compile(VK_NULL_HANDLE, "");
+	VulkanShaderCompiler::Compile(VK_NULL_HANDLE, "frufru.vert.glsl");
 
 	return 0;
 }

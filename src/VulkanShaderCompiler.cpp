@@ -7,7 +7,7 @@
 VkShaderModule VulkanShaderCompiler::Compile(VkDevice device, const char* filename)
 {
 	Core::Filesystem filesystem(__argv[0]);
-	std::string filenameStr(filename);
+	std::string filenameStr(filesystem.GetAbsolutePath(filename));
 	if (!filesystem.FileExists(filename))
 	{
 		CoreLogError(CompilerLogger, "Compiler: File \'%s\' does not exist.", filename);
