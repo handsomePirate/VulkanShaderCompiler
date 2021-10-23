@@ -15,9 +15,9 @@ project "VulkanShaderCompiler"
 	}
 
 	includedirs {
-		VulkanShaderCompilerInclude,
+		"$(VULKAN_SDK)/include",
 		SoftwareCoreInclude,
-		"$(VULKAN_SDK)/include"
+		VulkanShaderCompilerInclude
 	}
 
 	links {

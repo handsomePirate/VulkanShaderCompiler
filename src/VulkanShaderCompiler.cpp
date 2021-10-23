@@ -32,8 +32,8 @@ VkShaderModule VulkanShaderCompiler::Compile(VkDevice device, const char* filena
 	Preprocessor::Preprocess(fileData, fileSize);
 
 	std::string actualFileName = filesystem.Filename(filenameStr);
-	filesystem.RemoveExtension(filenameStr);
-	std::string shaderKindStr = filesystem.Extension(filenameStr);
+	std::string filenameNoExt = filesystem.RemoveExtension(filenameStr);
+	std::string shaderKindStr = filesystem.Extension(filenameNoExt);
 	shaderc_shader_kind shaderKind;
 	if (shaderKindStr == ".vert")
 	{

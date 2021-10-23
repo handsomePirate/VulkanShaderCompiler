@@ -9,15 +9,15 @@ project "Test"
 	files { "../../Test/src/**.hpp", "../../Test/src/**.cpp", "../../Test/src/**.glsl" }
 	
 	includedirs {
+		"$(VULKAN_SDK)/include",
 		SoftwareCoreInclude,
-		VulkanShaderCompilerInclude,
-		"$(VULKAN_SDK)/include"
+		VulkanShaderCompilerInclude
 	}
 	
 	links {
 		"$(VULKAN_SDK)/lib/vulkan-1.lib",
-		"VulkanShaderCompiler",
-		"SoftwareCore"
+		"SoftwareCore",
+		"VulkanShaderCompiler"
 	}
 	
 	filter "system:windows"
