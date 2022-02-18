@@ -21,7 +21,6 @@ project "VulkanShaderCompiler"
 	}
 
 	links {
-		"$(VULKAN_SDK)/lib/vulkan-1.lib",
 		"$(VULKAN_SDK)/lib/shaderc_shared.lib",
 		"SoftwareCore"
 	}
