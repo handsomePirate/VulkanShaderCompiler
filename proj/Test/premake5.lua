@@ -15,13 +15,18 @@ project "Test"
 	}
 	
 	links {
-		"$(VULKAN_SDK)/lib/vulkan-1.lib",
 		"SoftwareCore",
 		"VulkanShaderCompiler"
 	}
 	
 	filter "system:windows"
-		systemversion "latest"
+		links {
+			"$(VULKAN_SDK)/lib/vulkan-1.lib"
+		}
+	filter "system:linux"
+		links {
+			"$(VULKAN_SDK)/lib/libvulkan.so"
+		}
 	filter{}
 	
 	filter "configurations:Debug"
