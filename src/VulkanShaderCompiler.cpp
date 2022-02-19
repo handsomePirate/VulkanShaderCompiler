@@ -1,8 +1,9 @@
 #include "VulkanShaderCompiler/VulkanShaderCompilerAPI.hpp"
-#include "VulkanShaderCompiler/Logger.hpp"
 #include "Preprocessor.hpp"
 #include <SoftwareCore/Filesystem.hpp>
 #include <SoftwareCore/Process.hpp>
+#include <SoftwareCore/Logger.hpp>
+#include <SoftwareCore/DefaultLogger.hpp>
 #include <shaderc/shaderc.hpp>
 #include <string.h>
 
@@ -12,19 +13,19 @@ VkShaderModule VulkanShaderCompiler::Compile(VkDevice device, const char* filena
 	std::string filenameStr(filesystem.GetAbsolutePath(filename));
 	if (!filesystem.FileExists(filename))
 	{
-		CoreLogError(CompilerLogger, "Compiler: File \'%s\' does not exist.", filename);
+		CoreLogError(DefaultLogger, "Compiler: File \'%s\' does not exist.", filename);
 		return VK_NULL_HANDLE;
 	}
 
 	if (filesystem.Extension(filenameStr) != ".glsl")
 	{
-		CoreLogWarn(CompilerLogger, "Compiler: File \'%s\' is not a GLSL file.", filename);
+		CoreLogWarn(DefaultLogger, "Compiler: File \'%s\' is not a GLSL file.", filename);
 	}
 
 	size_t fileSize = filesystem.GetFileSize(filenameStr);
 	if (fileSize == 0)
 	{
-		CoreLogError(CompilerLogger, "Compiler: File \'%s\' is empty.", filename);
+		CoreLogError(DefaultLogger, "Compiler: File \'%s\' is empty.", filename);
 		return VK_NULL_HANDLE;
 	}
 
@@ -51,7 +52,7 @@ VkShaderModule VulkanShaderCompiler::Compile(VkDevice device, const char* filena
 	}
 	else
 	{
-		CoreLogError(CompilerLogger, "Compiler: Unsupported shader stage - \'%s\'.", shaderKindStr.c_str());
+		CoreLogError(DefaultLogger, "Compiler: Unsupported shader stage - \'%s\'.", shaderKindStr.c_str());
 		return VK_NULL_HANDLE;
 	}
 
@@ -71,10 +72,10 @@ VkShaderModule VulkanShaderCompiler::Compile(VkDevice device, const char* filena
 	if (compilationStatus != shaderc_compilation_status_success)
 	{
 		size_t errorCount = compilationResult.GetNumErrors();
-		CoreLogError(CompilerLogger, "Compiler: Encountered errors (%zu).", errorCount);
+		CoreLogError(DefaultLogger, "Compiler: Encountered errors (%zu).", errorCount);
 
 		std::string errorMessage = compilationResult.GetErrorMessage();
-		CoreLogError(CompilerLogger, "%s", errorMessage.c_str());
+		CoreLogError(DefaultLogger, "%s", errorMessage.c_str());
 
 		return VK_NULL_HANDLE;
 	}
@@ -90,7 +91,7 @@ VkShaderModule VulkanShaderCompiler::Compile(VkDevice device, const char* filena
 	VkResult result = vkCreateShaderModule(device, &shaderModuleCreateInfo, nullptr, &shaderModule);
 	if (result != VK_SUCCESS)
 	{
-		CoreLogError(CompilerLogger, "Compiler: Couldn't create shader module.");
+		CoreLogError(DefaultLogger, "Compiler: Couldn't create shader module.");
 	}
 
 	return shaderModule;
