@@ -2,11 +2,13 @@
 #include "VulkanShaderCompiler/Logger.hpp"
 #include "Preprocessor.hpp"
 #include <SoftwareCore/Filesystem.hpp>
+#include <SoftwareCore/Process.hpp>
 #include <shaderc/shaderc.hpp>
+#include <string.h>
 
 VkShaderModule VulkanShaderCompiler::Compile(VkDevice device, const char* filename)
 {
-	Core::Filesystem filesystem(__argv[0]);
+	Core::Filesystem filesystem(CoreProcess.GetRuntimePath());
 	std::string filenameStr(filesystem.GetAbsolutePath(filename));
 	if (!filesystem.FileExists(filename))
 	{

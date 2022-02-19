@@ -21,12 +21,17 @@ project "VulkanShaderCompiler"
 	}
 
 	links {
-		"$(VULKAN_SDK)/lib/shaderc_shared.lib",
 		"SoftwareCore"
 	}
 
 	filter "system:windows"
-		systemversion "latest"
+		links {
+			"$(VULKAN_SDK)/lib/shaderc_shared.lib"
+		}
+	filter "system:linux"
+		links {
+			"shaderc_shared"
+		}
 	filter{}
 	
 	filter "configurations:Debug"
